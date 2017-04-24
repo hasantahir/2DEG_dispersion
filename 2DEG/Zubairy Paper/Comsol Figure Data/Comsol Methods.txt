@@ -1,0 +1,15 @@
+In order to model the 2DEG layer, the permittivity is extracted from the conductivity expression by making an assumption that the layer has some finite thickness. The MATLAB code is included in the folder entitled 'conductivity_epsilon.m'. 
+
+We used a dielectric constant of -.42 + .005i for a heterostructure at 8 THz with an assumption of 3 nm thickness. 
+
+PEC boundaries are applied on the sides of 2deg and spacer layers to model the source and drain terminals. 
+
+A surface current density on the surface of the 2DEG layer to model the current flow.
+
+Although there is no specific need for mesh refinement but an adaptive mesh refinement can be used. Its disadvantage is that it generates a highly dense mesh throughout the computational space.
+
+The standing wave pattern is obtained by creating a line plot of the absolute value of the total electric field along the 2deg surface.
+
+The simulation can be improved by replacing Scattering boundary conditions by PML boubdary. At this time I don't know how to do it.
+
+8/3/2017

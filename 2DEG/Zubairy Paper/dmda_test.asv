@@ -1,0 +1,16 @@
+clear all
+lambda = linspace(12e3, 60e4, 2e4); % wavelength in lambda
+
+k0 = 2*pi/la0; 
+a = 20; % la0,a in units of nm
+es = 12.8; 
+ec = 10.7; 
+ef = (0.0657-4*1i)^2;
+tol = 1e-15; % error tolerance
+
+be0 = zeros(size(lambda));
+E0 = zeros(size(lambda));
+N0 = zeros(size(lambda));
+for i = 1 : length(lambda)
+    [be0(i),E0(i),N0(i)] = dmda(lambda(i),ef,ec,es,a,0,tol); % LRSP
+end
