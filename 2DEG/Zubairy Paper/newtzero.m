@@ -58,7 +58,7 @@ function root = newtzero(f,xr,mx,tol)
 % Author:  Matt Fig
 % Contact:  popkenai@yahoo.com
 
-defaults = {1,1e2,1e-12};% Initial guess, max iterations, tolerance.
+defaults = {1,3e1,1e-15};% Initial guess, max iterations, tolerance.
 
 switch nargin  % Error checking and default assignments.
     case 1
@@ -101,7 +101,7 @@ if abs(f(xr))< tol
 end
 
 
-LGS = logspace(0,2,2e4); % Can be altered for wider range or denser search.
+LGS = logspace(0,1,2e3); % Can be altered for wider range or denser search.
 LNS = 0:1/89:18/19;  % Search very close to initial guess too.
 
 
@@ -114,8 +114,8 @@ sqrteps = sqrt(eps); % Used to make h.  See loop.
 
 while iter <= mx && abs(mn2-mn1) > 1*eps
     h = sqrteps*xr; % From numerical recipes, make h = h(xr)
-%     fp = (f(xr+h)-f(xr-h))./(2*h); % First Derivative
-%     fpp = (f(xr+h)+f(xr-h) - 2*f(xr))./(h.^2); % Second Derivative
+    fp = (f(xr+h)-f(xr-h))./(2*h); % First Derivative
+    fpp = (f(xr+h)+f(xr-h) - 2*f(xr))./(h.^2); % Second Derivative
     xr = xr-f(xr)./((f(xr+h)-f(xr-h))./(2*h)); % Newton's method.
 %         xr = xr - f(xr)./(fp.*(1 - f(xr).*fpp./(2*fp.^2))); % Halley's method
     xr(isnan(xr) | isinf(xr)) = []; % No need for these anymore.
@@ -145,7 +145,7 @@ if ~isempty(root)
     cnt = 1;  % Counter for while loop.
     
     while ~isempty(root)
-        vct = abs(root - root(1)) < 1e-1; % Minimum spacing between roots.
+        vct = abs(root - root(1)) < 1e1; % Minimum spacing between roots.
         C = root(vct);  % C has roots grouped close together.
         [idx,idx] = min(abs(f(C)));  % Pick the best root per group.
         rt(cnt) = C(idx); %  Most root vectors are small.

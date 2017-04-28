@@ -1,5 +1,9 @@
 % function cond = cond_gaas(w)
 
+% Changelog 4/28/2017
+% Changes made to make conductivity ans epsilon signs consistent with 
+% electrical engineering notation of j = sqrt(-1);
+% 
 % From Burke's paper
 % High frequency conductivity of the high-mobility two-dimensional
 % electron gas
@@ -26,7 +30,7 @@ N = 7.5e12*1e4;
 
 % 3 K
 mu = 1e6*1e-4;
-tau = 1.14e-10;
+tau = 1.14e-13;
 % 77 K
 % mu = 1e4*1e-4;
 % tau = 1.14e-12;
@@ -39,15 +43,15 @@ ep = 9.5;
 
 % tr = 1e-11;
 % Conductivity
-cond = N*q^2*tau/ms./(1 - 1i*w*tau);
+cond = N*q^2*tau/ms./(1 + 1i*w*tau);
 cond0 = 1;%pi*q^2/(2*h);
 % Generate a material for FDTD based simulations
 % ep = 12.9;
 e_0 = 8.85e-12;
 delta = 5e-9;
 
-epsilon =  (1 + 1i*cond./(w*delta*ep*e_0));
-% Cond = cond./(epsilon);
+epsilon =  (1 - 1i*cond./(w*delta*ep*e_0));
+cond = cond./(epsilon);
 
 % figure(1)
 % semilogy(w/(2*pi),real(cond)/cond0,'linewidth',1.4)
@@ -66,7 +70,7 @@ h2 = plot(w/(2*pi)*1e-12,imag(cond), 'linewidth',1.4);
 % plot(w*1e-12,imag(ep2), 'linewidth',.5, 'LineStyle','--')
 set(gcf,'Color','white');
 set(gca,'FontName','times new roman','FontSize',15);
-set(gca,'FontName','times new roman','FontSize',15,'YScale', 'log','XScale', 'log') % Set axes fonts to Times New Roman
+% set(gca,'FontName','times new roman','FontSize',15,'YScale', 'log','XScale', 'log') % Set axes fonts to Times New Roman
 % xlim([1 10])
 % ylim([-35 55])
 %

@@ -1,3 +1,4 @@
+%% Solutions based on Kekatpure's paper on three layer waveguides
 clear all;
 la0 = 1550e-9;
 % ef = 3.5^2;

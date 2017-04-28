@@ -1,17 +1,26 @@
 % This code shows tunability of plasma resonance with gate bias
-Lg1 = .05e-6;
-Lg2 = .01e-6;
+Lg1 = 2e-6;
+Lg2 = 2e-6;
 q = 1.60218e-19; 
 m_e = 9.109e-31; % Electron mass
 e0 = 8.85e-12;
 
-ep = 12.7;
-ms = .067*m_e;
-dg = 20e-9;
-N0 = 2e12*1e4;
+%% GaAs/AlGaAs heterostructure
+% ep = 12.7;
+% ms = .067*m_e;
+% dg = 20e-9;
+% N0 = 2e12*1e4;
 
+%% GaN/AlGaN heterostructure
+ep = 9.5;
+ms = .2*m_e;
+dg = 1000e-9;
+N0 = 7.5e12*1e4;
 Vt = -0.764;
-V = linspace(0 , 5, 1e3);
+% Vt = -1;
+
+
+V = linspace(0 , 10, 1e3);
 
 Ns = N0 * ( 1 - V/Vt);
 
@@ -30,35 +39,37 @@ hold on
 h2 = plot(V,omega2*1e-12, 'linewidth',1.4);
 set(gcf,'Color','white');
 set(gca,'FontName','times new roman','FontSize',15);
-set(gca,'FontName','times new roman','FontSize',15,'YScale', 'log','XScale', 'lin') % Set axes fonts to Times New Roman
+set(gca,'FontName','times new roman','FontSize',15,'YScale', 'lin','XScale', 'lin') % Set axes fonts to Times New Roman
 
 %
 xlabel('$V_g (\mathrm V)$','interpreter','latex')
 ylabel('$f (\mathrm{THz})$','interpreter','latex')
 
-legend([h1 h2], {'$L_g = 1 \mu m$', '$L_g = 100 nm$'},...
+legend([h1 h2], {'$L_g = 1 \mu m$', '$L_g = 2 \mu m$'},...
     'location','northwest','interpreter','latex','FontSize',15);
 set(gca,'FontName','times new roman','FontSize',15) % Set axes fonts to Times New Roman
 % grid on
 box on
+% % % cleanfigure();
+matlab2tikz('filename',sprintf('change_in_freq.tex'));
 
-%% figure(2)
-% shading interp
-figure(2)
+% %% figure(2)
+% % shading interp
+% figure(2)
+% % 
+% N = 2;
+% axes('ColorOrder',brewermap(N,'Set1'),'NextPlot','replacechildren')
+% h1 = plot(V,Ns*1e-4, 'linewidth',1.4);
+% set(gcf,'Color','white');
+% set(gca,'FontName','times new roman','FontSize',15);
+% set(gca,'FontName','times new roman','FontSize',15,'YScale', 'lin','XScale', 'lin') % Set axes fonts to Times New Roman
 % 
-N = 2;
-axes('ColorOrder',brewermap(N,'Set1'),'NextPlot','replacechildren')
-h1 = plot(V,Ns*1e-4, 'linewidth',1.4);
-set(gcf,'Color','white');
-set(gca,'FontName','times new roman','FontSize',15);
-set(gca,'FontName','times new roman','FontSize',15,'YScale', 'lin','XScale', 'lin') % Set axes fonts to Times New Roman
-
-%
-xlabel('$V_g (\mathrm V)$','interpreter','latex')
-ylabel('$N_s (\mathrm{cm}^{-2})$','interpreter','latex')
-
-% legend([h1 h2], {'$L_g = 1 \mu m$', '$L_g = 100 nm$'},...
-%     'location','northwest','interpreter','latex','FontSize',15);
-set(gca,'FontName','times new roman','FontSize',15) % Set axes fonts to Times New Roman
-% grid on
-box on
+% %
+% xlabel('$V_g (\mathrm V)$','interpreter','latex')
+% ylabel('$N_s (\mathrm{cm}^{-2})$','interpreter','latex')
+% 
+% % legend([h1 h2], {'$L_g = 1 \mu m$', '$L_g = 100 nm$'},...
+% %     'location','northwest','interpreter','latex','FontSize',15);
+% set(gca,'FontName','times new roman','FontSize',15) % Set axes fonts to Times New Roman
+% % grid on
+% box on
